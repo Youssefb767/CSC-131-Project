@@ -25,7 +25,6 @@ app.post('/User', async(req,res)=> {
   }
 })
 
-
 mongoose.connect(dbURL)
   .then(() => {
     console.log('Connected to MongoDB')
@@ -36,6 +35,3 @@ mongoose.connect(dbURL)
   .catch((error) => {
     console.log(error)
   })
-
-
-
