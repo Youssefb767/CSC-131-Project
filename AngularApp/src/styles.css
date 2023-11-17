@@ -1,17 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-img {
-    width: 100px;
-    border-radius: 50px;
-    border-image: 10cm;
-    margin-right: 10px;
-  }
-  .Welcome {
-    font-weight: bold;
-    font-style: italic;
-    text-align: center;
-    
-  }
-  body {
+body {
     background-color: rgb(97, 139, 173);
     }
     * {
@@ -19,7 +7,7 @@ img {
       }
       :root {
         --background-color: black;
-        --text-color: hsl(0, 0%, 100%);
+        --text-color: hsl(204, 25%, 47%);
       }
       body {
         margin: 0;
