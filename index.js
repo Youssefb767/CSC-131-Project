@@ -47,6 +47,7 @@ app.post('/Users', async(req,res)=> {
   }
 })
 
+<<<<<<< HEAD
 app.delete('/Users/:id', async(req,res)=>{
   try {
     const {id}= req.params;
@@ -75,6 +76,8 @@ app.put('/Users/:id', async(req, res) =>{
 })
 
 
+=======
+>>>>>>> 1e98c7e8ef898e17779eb6f154a250b1d66357b6
 mongoose.connect(dbURL)
   .then(() => {
     console.log('Connected to MongoDB')
@@ -85,6 +88,3 @@ mongoose.connect(dbURL)
   .catch((error) => {
     console.log(error)
   })
-
-
-
