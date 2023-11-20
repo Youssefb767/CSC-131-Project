@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HomeComponent } from './home/home.component';
@@ -17,6 +18,12 @@ import { HomeComponent } from './home/home.component';
     </section>
   </main>
 `,
+=======
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+>>>>>>> 2a1807fca0420bb441aacd6b497aace8e5289562
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
