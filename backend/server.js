@@ -12,6 +12,10 @@ connectDB()
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
+app.get('/', (req, res) => {
+    res.send('Welcome to the backend!');
+});
+
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/meeting', require('./routes/meetingRoutes'))
 

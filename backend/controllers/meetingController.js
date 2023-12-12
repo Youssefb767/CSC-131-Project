@@ -8,7 +8,7 @@ const getAllMeetings = asyncHandler(async (req, res) => {
 
 //Gets a single meeting --- GET /api/users/:id
 const getSingleMeeting = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Get a Meeting ${req.params.id}` })
+    res.status(200).json({message: `Get a Meeting ${req.params.meeting_id}` })
 })
 
 //Creates a meeting--- POST /api/users
@@ -22,12 +22,12 @@ const createMeeting = asyncHandler(async (req, res) => {
 
 //Edits a user --- PUT /api/users/:id
 const editMeeting = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Edit a Meeting ${req.params.id}` })
+    res.status(200).json({message: `Edit a Meeting ${req.params.meeting_id}` })
 })
 
 //Deletes a user --- DELETE /api/user/:id
 const deleteMeeting = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Delete a Meeting ${req.params.id}` })
+    res.status(200).json({message: `Delete a Meeting ${req.params.meeting_id}` })
 })
 
 module.exports = {

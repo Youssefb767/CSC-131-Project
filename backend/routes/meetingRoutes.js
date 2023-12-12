@@ -15,7 +15,7 @@
    // You can combine routes that share an endpoint like this:
    router.route('/').get(getAllMeetings).post(createMeeting)
    
-   router.route('/:id').get(getSingleMeeting).put(editMeeting).delete(deleteMeeting)
+   router.route('/:meeting_id').get(getSingleMeeting).put(editMeeting).delete(deleteMeeting)
    
    //Lets you use the routes in the server file
    module.exports = router
