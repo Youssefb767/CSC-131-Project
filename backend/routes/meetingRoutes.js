@@ -11,7 +11,7 @@
        editMeeting,
        deleteMeeting}
        = require('../controllers/meetingController')
-   
+
    // You can combine routes that share an endpoint like this:
    router.route('/').get(getAllMeetings).post(createMeeting)
    
