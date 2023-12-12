@@ -63,7 +63,5 @@ const deleteUserAvailability = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    getAllUser, getSingleUser, createUser, editUser, deleteUser, 
-    getAllUserAvailability, getSingleUserAvailability, createUserAvailability,
-    editUserAvailability, deleteUserAvailability
+    getAllUser, getSingleUser, createUser, editUser, deleteUser,
 }
