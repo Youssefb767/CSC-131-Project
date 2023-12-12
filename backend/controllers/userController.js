@@ -1,9 +1,10 @@
-//Simplifies error handling
+const User = require('../models/userModel')
 const asyncHandler = require('express-async-handler')
 
 //Gets all users --- GET api/users
 const getAllUser = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'Get all users'})
+    const users = await User.find()
+    res.status(200).json(users)
 })
 
 //Gets a single user --- GET /api/users/:id
@@ -63,5 +64,6 @@ const deleteUserAvailability = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllUser, getSingleUser, createUser, editUser, deleteUser, 
-    getAllUserAvailability, getSingleUserAvailability, createUserAvailability, editUserAvailability, deleteUserAvailability
+    getAllUserAvailability, getSingleUserAvailability, createUserAvailability,
+    editUserAvailability, deleteUserAvailability
 }

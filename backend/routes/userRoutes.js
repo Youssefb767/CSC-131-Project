@@ -18,15 +18,15 @@
        = require('../controllers/userController')
    
    // You can combine routes that share an endpoint like this:
-   router.route('/users').get(getAllUser).post(createUser)
-   
-   router.route('/users/:id').get(getSingleUser).put(editUser).delete(deleteUser)
+   router.route('/').get(getAllUser).post(createUser)
+
+   router.route('/:id').get(getSingleUser).put(editUser).delete(deleteUser)
    
    //router.route('/timeslots').get(getAllUserAvailability) timeslots function if we choose to do it this way
    
-   router.route('/users/:id/availability').get(getSingleUserAvailability).post(createUserAvailability)
+   router.route('/availability').get(getSingleUserAvailability).post(createUserAvailability)
    
-   router.route('/users/:id/availability/:availability_id').put(editUserAvailability).delete(deleteUserAvailability)
+   router.route('/:availability_id').put(editUserAvailability).delete(deleteUserAvailability)
    
    //Lets you use the routes in the server file
    module.exports = router
