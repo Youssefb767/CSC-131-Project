@@ -1,12 +1,11 @@
 //Simplifies error handling
 const asyncHandler = require('express-async-handler')
 const Meeting = require('../models/meetingModel')
-const User = require("../models/userModel");
 
 //Gets all meetings --- GET api/meeting
 const getAllMeetings = asyncHandler(async (req, res) => {
     const meetings = await Meeting.find()
-    res.status(200).json({ message: 'Get all Meetings'})
+    res.status(200).json(meetings)
 })
 
 //Gets a single meeting --- GET /api/meeting/{meeting_id}
@@ -25,7 +24,27 @@ const getSingleMeeting = asyncHandler(async (req, res) => {
 
 //Creates a meeting--- POST /api/meeting
 const createMeeting = asyncHandler(async (req, res) => {
-    console.log("help me")
+    const { startDate, startTime, endTime, meetingDescription, availableUsers } = req.body;
+    try {
+        // Validate input data
+        if (!startDate || !startTime || !endTime || !meetingDescription || !availableUsers) {
+            res.status(400).json({ message: 'Invalid or missing meeting details' });
+            return;
+        }
+        // Create a new meeting
+        const newMeeting = await Meeting.create({
+            startDate,
+            startTime,
+            endTime,
+            meetingDescription,
+            availableUsers,
+        });
+        // Respond with the created meeting
+        res.status(201).json(newMeeting);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Failed to create a meeting. Please try again.' });
+    }
 })
 
 //Edits a user --- PUT /api/users/:id

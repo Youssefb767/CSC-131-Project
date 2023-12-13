@@ -83,22 +83,26 @@ const deleteUser = asyncHandler(async (req, res) => {
 //START OF AVAILABILITY ENDPOINTS
 //Gets all users availability and compare it to the times --- GET api/users/timeslots
 const getAllUserAvailability = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'Get all availability'})
+    const userId = req.params.id;
+
+    // Assuming Availability model has a field to link availability to a user (e.g., availabilityUserID)
+    const userAvailabilities = await Availability.find({ availabilityUserID: userId });
+
+    res.status(200).json({ userAvailabilities });
 })
 
 //Gets a single user's availability --- GET /api/users/:id/availability
 const getSingleUserAvailability = asyncHandler(async (req, res) => {
-    const userID = req.params.id;
     const availabilityId = req.params.availability_id;
-    const availablity = await Availability.findById(availabilityId)
+    const availability = await Availability.findById(availabilityId)
 
-    if (!availablity) {
+    if (!availability) {
         // If user is not found, return a 404 response
         res.status(404).json({ message: `Availability id:${availabilityId} not found` });
         return;
     }
 
-    res.status(200).json(availablity);
+    res.status(200).json(availability);
 })
 
 //Creates a new availability for user --- POST /api/users/:id/availability/
@@ -137,7 +141,6 @@ const createUserAvailability = asyncHandler(async (req, res) => {
 
 //Edits a user's availability --- PUT /api/users/:id/availability/:id
 const editUserAvailability = asyncHandler(async (req, res) => {
-    const userId = req.params.id;
     const availabilityId = req.params.availability_id;
 
     const availability = await Availability.findById(availabilityId);
@@ -151,7 +154,6 @@ const editUserAvailability = asyncHandler(async (req, res) => {
 
 //Deletes a user's availability --- DELETE /api/user/:id/availability/:id
 const deleteUserAvailability = asyncHandler(async (req, res) => {
-    const userId = req.params.id;
     const availabilityId = req.params.availability_id
     const availability = await Availability.findById(availabilityId);
 
@@ -169,6 +171,6 @@ const deleteUserAvailability = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    getAllUser, getSingleUser, createUser, editUser, deleteUser,
-    getSingleUserAvailability, createUserAvailability, editUserAvailability, deleteUserAvailability
+    getAllUser, getSingleUser, createUser, editUser, deleteUser, getAllUserAvailability,
+    getSingleUserAvailability, createUserAvailability, editUserAvailability, deleteUserAvailability,
 }
