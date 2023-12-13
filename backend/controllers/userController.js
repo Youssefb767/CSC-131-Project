@@ -1,5 +1,6 @@
-const User = require('../models/userModel')
 const asyncHandler = require('express-async-handler')
+
+const User = require('../models/userModel')
 
 //Gets all users --- GET api/users
 const getAllUser = asyncHandler(async (req, res) => {
@@ -14,11 +15,25 @@ const getSingleUser = asyncHandler(async (req, res) => {
 
 //Creates a user --- POST /api/users
 const createUser = asyncHandler(async (req, res) => {
-    if(!req.body.text){ // 400 = bad request
-        res.status(400)
-        throw new Error('Please add a text field')
+    if (!req.is('application/json')) {
+        // 415 = Unsupported Media Type
+        res.status(415);
+        throw new Error('Unsupported Media Type. Please send JSON.');
     }
-    res.status(200).json({message: 'Create a user' })
+
+    const { Username, Password } = req.body;
+    if (!Username || !Password) {
+        // 400 = Bad Request
+        res.status(400);
+        throw new Error('Please provide both Username and Password fields.');
+    }
+
+    const user = await User.create({
+        Username,
+        Password
+    });
+
+    res.status(200).json(user);
 })
 
 //Edits a user --- PUT /api/users/:id
