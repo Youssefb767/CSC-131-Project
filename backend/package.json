@@ -1,5 +1,5 @@
 {
-  "name": "CSC_131_Project",
+  "name": "backend",
   "version": "1.0.0",
   "description": "Backend for csc 131 project",
   "main": "server.js",
