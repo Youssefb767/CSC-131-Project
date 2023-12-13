@@ -3,24 +3,74 @@ import React, { useState } from "react";
 
 
 const AddEventForm = ({ onAddEvent }) => {
-    const [title, setTitle] = useState("");
+    const [formData, setFormData] = useState({
+        startDate: "",
+        startTime: "",
+        endTime: "",
+        meetingDescription: "",
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (title.trim() !== "") {
-            onAddEvent({ title });
-            setTitle("");
-        }
+        onAddEvent(formData);
+        // Optionally, you can reset the form state here
+        setFormData({
+            startDate: "",
+            startTime: "",
+            endTime: "",
+            meetingDescription: "",
+        });
     };
 
     return (
         <form onSubmit={handleSubmit}>
             <label>
-                Event Title:
+                Start Date:
+                <input
+                    type="date"
+                    name="startDate"
+                    value={formData.startDate}
+                    onChange={handleChange}
+                    required
+                />
+            </label>
+            <label>
+                Start Time:
                 <input
                     type="text"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
+                    name="startTime"
+                    value={formData.startTime}
+                    onChange={handleChange}
+                    placeholder="HH:MM AM/PM"
+                    required
+                />
+            </label>
+            <label>
+                End Time:
+                <input
+                    type="text"
+                    name="endTime"
+                    value={formData.endTime}
+                    onChange={handleChange}
+                    placeholder="HH:MM AM/PM"
+                    required
+                />
+            </label>
+            <label>
+                Meeting Description:
+                <textarea
+                    name="meetingDescription"
+                    value={formData.meetingDescription}
+                    onChange={handleChange}
+                    required
                 />
             </label>
             <button type="submit">Add Event</button>
