@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler')
-
 const User = require('../models/userModel')
 
 //Gets all users --- GET api/users
@@ -10,7 +9,16 @@ const getAllUser = asyncHandler(async (req, res) => {
 
 //Gets a single user --- GET /api/users/:id
 const getSingleUser = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Get a user ${req.params.id}` })
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+        // If user is not found, return a 404 response
+        res.status(404).json({ message: 'User not found' });
+        return;
+    }
+
+    res.status(200).json(user);
 })
 
 //Creates a user --- POST /api/users
@@ -22,10 +30,14 @@ const createUser = asyncHandler(async (req, res) => {
     }
 
     const { Username, Password } = req.body;
-    if (!Username || !Password) {
-        // 400 = Bad Request
+    if (!Username || typeof Username !== 'string' || Username.trim() === '') {
         res.status(400);
-        throw new Error('Please provide both Username and Password fields.');
+        throw new Error('Invalid or missing Username.');
+    }
+
+    if (!Password || typeof Password !== 'string' || Password.trim() === '') {
+        res.status(400);
+        throw new Error('Invalid or missing Password.');
     }
 
     const user = await User.create({
@@ -34,16 +46,37 @@ const createUser = asyncHandler(async (req, res) => {
     });
 
     res.status(200).json(user);
-})
+});
 
 //Edits a user --- PUT /api/users/:id
 const editUser = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Edit a user ${req.params.id}` })
+    const userId = req.params.id;
+
+    const user = await User.findById(userId);
+    if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+    }
+    const updatedUser = await User.findByIdAndUpdate(userId, req.body, { new: true });
+    res.status(200).json(updatedUser);
 })
 
 //Deletes a user --- DELETE /api/user/:id
 const deleteUser = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Delete a user ${req.params.id}` })
+    const userId = req.params.id;
+    const user = await User.findById(userId);
+
+    if (!user) {
+        res.status(404).json({ message: 'User not found' });
+        return;
+    }
+
+    const result = await User.deleteOne({ _id: userId });
+    if (result.deletedCount === 1) {
+        res.status(200).json({ id: userId });
+    } else {
+        res.status(500).json({ message: 'Failed to delete user' });
+    }
 })
 
 //START OF AVAILABILITY ENDPOINTS
