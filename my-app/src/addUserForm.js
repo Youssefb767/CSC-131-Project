@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const AddUserForm = ({ onAddUser }) => {
     const [formData, setFormData] = useState({
-        username:"",
-        password:"",
+        Username:"",
+        Password:"",
     });
+    //const [isSubmitted, setIsSubmitted] = useState(false);
+    //const [error, setError] = useState(null);
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -13,17 +16,22 @@ const AddUserForm = ({ onAddUser }) => {
             [name]: value,
         }));
     };
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onAddUser(formData);
+        try {
+
+            const response = await axios.post("http://localhost:5000/api/users", formData);
+            console.log("User added successfully:", response.data);
+        onAddUser(response.data);
         // Optionally, you can reset the form state here
         setFormData({
-            startDate: "",
-            startTime: "",
-            endTime: "",
-            meetingDescription: "",
+           Username:"",
+           Password:"",
         });
-    };
+    }catch (error){
+            console.error("Error adding user:", error);
+        }
+    }
 
     return (
         <form onSubmit={handleSubmit}>
@@ -31,8 +39,8 @@ const AddUserForm = ({ onAddUser }) => {
                 username:
                 <input
                     type="text"
-                    name="username"
-                    value={formData.username}
+                    name="Username"
+                    value={formData.Username}
                     onChange={handleChange}
                     required
                 />
@@ -41,14 +49,14 @@ const AddUserForm = ({ onAddUser }) => {
                 password:
                 <input
                     type="text"
-                    name="password"
-                    value={formData.startTime}
+                    name="Password"
+                    value={formData.Password}
                     onChange={handleChange}
                     placeholder="password"
                     required
                 />
             </label>
-
+            <button type="submit">add user</button>
             <Link to="/" className="button-style">
                 back to calendar
             </Link>
