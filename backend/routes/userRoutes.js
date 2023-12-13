@@ -10,7 +10,6 @@
        createUser,
        editUser,
        deleteUser,
-       getTimeslots,
        getSingleUserAvailability,
        createUserAvailability,
        editUserAvailability,
@@ -21,6 +20,8 @@
    router.route('/').get(getAllUser).post(createUser)
    
    router.route('/:id').get(getSingleUser).put(editUser).delete(deleteUser)
+   
+   //router.route('/timeslots').get(getAllUserAvailability) timeslots function if we choose to do it this way
    
    router.route('/:id/availability').get(getSingleUserAvailability).post(createUserAvailability)
    

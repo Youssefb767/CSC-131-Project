@@ -81,11 +81,6 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 //START OF AVAILABILITY ENDPOINTS
-//Gets all users availability in order to make meetings --- GET api/timeslots
-const getTimeslots = asyncHandler(async (req, res) => {
-    const availabilities = await Availability.findById();
-    res.status(200).json(availabilities);
-})
 
 //Gets a single user's availability --- GET /api/users/:id/availability
 const getSingleUserAvailability = asyncHandler(async (req, res) => {
@@ -142,7 +137,6 @@ const createUserAvailability = asyncHandler(async (req, res) => {
 
 //Edits a user's availability --- PUT /api/users/:id/availability/:id
 const editUserAvailability = asyncHandler(async (req, res) => {
-    const userId = req.params.id;
     const availabilityId = req.params.availability_id;
 
     const availability = await Availability.findById(availabilityId);
@@ -156,7 +150,6 @@ const editUserAvailability = asyncHandler(async (req, res) => {
 
 //Deletes a user's availability --- DELETE /api/user/:id/availability/:id
 const deleteUserAvailability = asyncHandler(async (req, res) => {
-    const userId = req.params.id;
     const availabilityId = req.params.availability_id
     const availability = await Availability.findById(availabilityId);
 
@@ -175,6 +168,5 @@ const deleteUserAvailability = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllUser, getSingleUser, createUser, editUser, deleteUser,
-    getTimeslots,
     getSingleUserAvailability, createUserAvailability, editUserAvailability, deleteUserAvailability
 }
