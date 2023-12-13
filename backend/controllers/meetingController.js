@@ -1,17 +1,19 @@
 //Simplifies error handling
 const asyncHandler = require('express-async-handler')
+const Meeting = require('../models/meetingModel')
 
-//Gets all meetings --- GET api/users
+//Gets all meetings --- GET api/meeting
 const getAllMeetings = asyncHandler(async (req, res) => {
+    const meetings = await Meeting.find()
     res.status(200).json({ message: 'Get all Meetings'})
 })
 
-//Gets a single meeting --- GET /api/users/:id
+//Gets a single meeting --- GET /api/meeting/{meeting_id}
 const getSingleMeeting = asyncHandler(async (req, res) => {
     res.status(200).json({message: `Get a Meeting ${req.params.meeting_id}` })
 })
 
-//Creates a meeting--- POST /api/users
+//Creates a meeting--- POST /api/meeting
 const createMeeting = asyncHandler(async (req, res) => {
     if(!req.body.text){ // 400 = bad request
         res.status(400)
