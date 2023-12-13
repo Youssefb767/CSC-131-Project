@@ -1,6 +1,5 @@
-// AddEventForm.js
 import React, { useState } from "react";
-
+import {Link} from "react-router-dom";
 
 const AddEventForm = ({ onAddEvent }) => {
     const [formData, setFormData] = useState({
@@ -74,6 +73,9 @@ const AddEventForm = ({ onAddEvent }) => {
                 />
             </label>
             <button type="submit">Add Event</button>
+            <Link to="/" className="button-style">
+                back to calendar
+            </Link>
         </form>
     );
 };

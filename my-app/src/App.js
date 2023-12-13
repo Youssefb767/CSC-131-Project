@@ -5,6 +5,8 @@ import { generateDate, months } from "/Users/sasha/currentprojecttry/CSC-131-Pro
 import cn from "./util/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import AddEventForm from "./addEventForm";
+import AddUserForm from "./addUserForm";
+
 
 
 
@@ -22,9 +24,9 @@ export default function Calendar() {
 	]);
 
 
-	const handleAddEvent = (eventData) => {
+	/*const handleAddEvent = (eventData) => {
 		setMeetingData([...meetingData, { id: meetingData.length + 1, ...eventData }]);
-	};
+	};*/
 
 	return (
 		<div className="flex gap-10 sm:divide-x justify-center sm:w-1/2 mx-auto  h-screen items-center sm:flex-row flex-col">
@@ -86,7 +88,7 @@ export default function Calendar() {
 											selectDate
 												.toDate()
 												.toDateString() ===
-												date.toDate().toDateString()
+											date.toDate().toDateString()
 												? "bg-black text-white"
 												: "",
 											"h-10 w-10 rounded-full grid place-content-center hover:bg-black hover:text-white transition-all cursor-pointer select-none"
@@ -121,12 +123,18 @@ export default function Calendar() {
 				<Link to="/add-event" className="button-style">
 					Add an Event
 				</Link>
+				<div>
+					<Link to="/add-user" className="button-style">
+						Add a user
+					</Link>
+				</div>
 
-        <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button">Users <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-        </svg>
-        </button>
-      </div>
+
+				<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button">Users <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+				</svg>
+				</button>
+			</div>
 		</div>
 	);
 }
