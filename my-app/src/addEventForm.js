@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {Link} from "react-router-dom";
+import axios from "axios";
 
 const AddEventForm = ({ onAddEvent }) => {
     const [formData, setFormData] = useState({
@@ -7,7 +8,24 @@ const AddEventForm = ({ onAddEvent }) => {
         startTime: "",
         endTime: "",
         meetingDescription: "",
+        availableUsers: [],
     });
+
+
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        const fetchUsers = async () => {
+            try {
+
+                const response = await axios.get("http://localhost:5000/api/users");
+                setUsers(response.data);
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+
+        fetchUsers();
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,21 +34,66 @@ const AddEventForm = ({ onAddEvent }) => {
             [name]: value,
         }));
     };
+    const handleUserCheckboxChange = (userId) => {
+        setFormData((prevData) => {
+            const availableUsers = (prevData.availableUsers || []).includes(userId)
+                ? (prevData.availableUsers || []).filter((id) => id !== userId)
+                : [...(prevData.availableUsers || []), userId];
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        onAddEvent(formData);
-        // Optionally, you can reset the form state here
-        setFormData({
-            startDate: "",
-            startTime: "",
-            endTime: "",
-            meetingDescription: "",
+            return {
+                ...prevData,
+                availableUsers,
+            };
         });
     };
 
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post("http://localhost:5000/api/meeting", formData);
+            console.log("Meeting added successfully:", response.data);
+            onAddEvent(response.data);
+            setFormData({
+                startDate: "",
+                startTime: "",
+                endTime: "",
+                meetingDescription: "",
+                availableUsers: [],
+            });
+        } catch (error) {
+            console.error("Error adding meeting:", error);
+        }
+    };
+
+
+
+
+
+
+
+    console.log(users);
     return (
         <form onSubmit={handleSubmit}>
+            <label>
+                Meeting Participants:
+                {users.map((user) => (
+                    <div key={user._id}>
+                        <input
+                            type="checkbox"
+                            id={user._id}
+                            name="selectedUsers"
+                            checked={formData.availableUsers && formData.availableUsers.includes(user._id)}
+                            onChange={() => handleUserCheckboxChange(user._id)}
+                        />
+                        <label htmlFor={user._id}>{user.Username}</label>
+                    </div>
+                ))}
+            </label>
+
+
             <label>
                 Start Date:
                 <input
@@ -79,5 +142,4 @@ const AddEventForm = ({ onAddEvent }) => {
         </form>
     );
 };
-
 export default AddEventForm;
