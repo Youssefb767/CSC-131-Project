@@ -5,7 +5,7 @@ const availabilitySchema = mongoose.Schema({
         type: String,
         required: [true, 'Please give the users ID']
     },
-    availablityDate: {
+    availabilityDate: {
         type: Date,
         required: [true, 'Please give a starting date']
     },
