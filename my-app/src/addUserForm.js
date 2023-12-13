@@ -22,11 +22,10 @@ const AddUserForm = ({ onAddUser }) => {
 
             const response = await axios.post("http://localhost:5000/api/users", formData);
             console.log("User added successfully:", response.data);
-        onAddUser(response.data);
-        // Optionally, you can reset the form state here
-        setFormData({
-           Username:"",
-           Password:"",
+
+            setFormData({
+               Username:"",
+               Password:"",
         });
     }catch (error){
             console.error("Error adding user:", error);

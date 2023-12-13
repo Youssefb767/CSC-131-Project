@@ -3,7 +3,7 @@
 
    const express = require('express')
    const router = express.Router()
-   
+
    //Lets you import the functionalities from the controller file
    const {getAllMeetings,
        getSingleMeeting,
