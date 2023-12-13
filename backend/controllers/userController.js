@@ -1,5 +1,6 @@
 const asyncHandler = require('express-async-handler')
 const User = require('../models/userModel')
+const Availability = require('../models/availabilityModel')
 
 //Gets all users --- GET api/users
 const getAllUser = asyncHandler(async (req, res) => {
@@ -92,12 +93,36 @@ const getSingleUserAvailability = asyncHandler(async (req, res) => {
 
 //Creates a new availability for user --- POST /api/users/:id/availability/
 const createUserAvailability = asyncHandler(async (req, res) => {
-    if(!req.body.text){ // 400 = bad request
-        res.status(400)
-        throw new Error('Please add a start and end time')
-        //TODO make new error for non existent user
+    if (!req.is('application/json')) {
+        // 415 = Unsupported Media Type
+        res.status(415);
+        throw new Error('Unsupported Media Type. Please send JSON.');
     }
-    res.status(200).json({message: `New availability created for user ${req.params.id}` })
+
+    const availabilityUserID = req.params.id
+    const availabilityDate = new Date(req.body.availabilityDate);
+    const { startTime, endTime} = req.body;
+    if (isNaN(availabilityDate)) { // Check if parsed date is a valid Date string
+        res.status(400);
+        throw new Error('Please provide a valid availability date in the format of YYYY-MM-DDTHH:MM:SS.');
+    }
+    if(!startTime) {
+        res.status(400);
+        throw new Error('Please provide a start time in the format HH:MM PM/AM.')
+    }
+    if(!endTime) {
+        res.status(400);
+        throw new Error('Please provide an end time in the format HH:MM PM/AM.')
+    }
+
+    const availability = await Availability.create({
+        availabilityUserID,
+        availabilityDate,
+        startTime,
+        endTime
+    });
+
+    res.status(200).json(availability);
 })
 
 //Edits a user's availability --- PUT /api/users/:id/availability/:id
