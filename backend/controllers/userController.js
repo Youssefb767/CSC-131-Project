@@ -81,24 +81,29 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 //START OF AVAILABILITY ENDPOINTS
-//Gets all users availability and compare it to the times --- GET api/users/timeslots
-const getAllUserAvailability = asyncHandler(async (req, res) => {
-    res.status(200).json({ message: 'Get all availability'})
+//Gets all users availability in order to make meetings --- GET api/timeslots
+const getTimeslots = asyncHandler(async (req, res) => {
+    const availabilities = await Availability.findById();
+    res.status(200).json(availabilities);
 })
 
 //Gets a single user's availability --- GET /api/users/:id/availability
 const getSingleUserAvailability = asyncHandler(async (req, res) => {
-    const userID = req.params.id;
-    const availabilityId = req.params.availability_id;
-    const availablity = await Availability.findById(availabilityId)
+    const userId = req.params.id;
+    
+    try {
+        const foundAvailability = await Availability.findOne({ availabilityUserID: userId})
 
-    if (!availablity) {
-        // If user is not found, return a 404 response
-        res.status(404).json({ message: `Availability id:${availabilityId} not found` });
-        return;
+        if (!foundAvailability) {
+            // If user is not found, return a 404 response
+            res.status(404).json({ message: `Availability for User ID:${userId} not found` });
+        }
+
+        res.status(200).json(foundAvailability);
+
+    } catch (error) {
+        res.status(500).json({ message: 'Server Error' });
     }
-
-    res.status(200).json(availablity);
 })
 
 //Creates a new availability for user --- POST /api/users/:id/availability/
@@ -170,5 +175,6 @@ const deleteUserAvailability = asyncHandler(async (req, res) => {
 
 module.exports = {
     getAllUser, getSingleUser, createUser, editUser, deleteUser,
+    getTimeslots,
     getSingleUserAvailability, createUserAvailability, editUserAvailability, deleteUserAvailability
 }

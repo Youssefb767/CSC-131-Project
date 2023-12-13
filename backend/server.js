@@ -14,6 +14,7 @@ app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
+app.use('/api/timeslots', require('./routes/timeslotRoutes'))
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/meeting', require('./routes/meetingRoutes'))
 
