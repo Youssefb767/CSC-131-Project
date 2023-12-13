@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { generateDate, months } from "/Users/sasha/currentprojecttry/CSC-131-Project/my-app/src/util/calender.js";
+import { generateDate, months } from "/Users/qasimali/Desktop/CSC-131-Project/my-app/src/util/calender.js";
 import cn from "./util/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import AddEventForm from "./addEventForm";
@@ -120,15 +120,12 @@ export default function Calendar() {
 					<p className="text-gray-400">No meetings for today.</p>
 				)}
 
-				<Link to="/add-event" className="button-style">
-					Add an Event
+				<Link to="/add-event" className="button-style text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button"> Add an Event <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 5 6"></svg>
 				</Link>
 				<div>
-					<Link to="/add-user" className="button-style">
-						Add a user
+					<Link to="/add-user" class="button-style text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button"> Add a User <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 5 6"></svg>
 					</Link>
 				</div>
-
 
 				<button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button">Users <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
 					<path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
