@@ -88,7 +88,17 @@ const getAllUserAvailability = asyncHandler(async (req, res) => {
 
 //Gets a single user's availability --- GET /api/users/:id/availability
 const getSingleUserAvailability = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Get user ${req.params.id}'s availability` })
+    const userID = req.params.id;
+    const availabilityId = req.params.availability_id;
+    const availablity = await Availability.findById(availabilityId)
+
+    if (!availablity) {
+        // If user is not found, return a 404 response
+        res.status(404).json({ message: `Availability id:${availabilityId} not found` });
+        return;
+    }
+
+    res.status(200).json(availablity);
 })
 
 //Creates a new availability for user --- POST /api/users/:id/availability/
@@ -127,12 +137,35 @@ const createUserAvailability = asyncHandler(async (req, res) => {
 
 //Edits a user's availability --- PUT /api/users/:id/availability/:id
 const editUserAvailability = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Edit user ${req.params.id}'s availability number ${req.params.availability_id}`})
+    const userId = req.params.id;
+    const availabilityId = req.params.availability_id;
+
+    const availability = await Availability.findById(availabilityId);
+    if (!availability) {
+        res.status(404).json({ message: `Availability id:${availabilityId} not found` });
+        return;
+    }
+    const updatedAvailability = await Availability.findByIdAndUpdate(availabilityId, req.body, { new: true });
+    res.status(200).json(updatedAvailability);
 })
 
 //Deletes a user's availability --- DELETE /api/user/:id/availability/:id
 const deleteUserAvailability = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Delete user ${req.params.id}'s availability number ${req.params.availability_id}`})
+    const userId = req.params.id;
+    const availabilityId = req.params.availability_id
+    const availability = await Availability.findById(availabilityId);
+
+    if (!availability) {
+        res.status(404).json({ message: `Availability id:${availabilityId} not found` });
+        return;
+    }
+
+    const result = await Availability.deleteOne({ _id: availabilityId });
+    if (result.deletedCount === 1) {
+        res.status(200).json({ id: availabilityId });
+    } else {
+        res.status(500).json({ message: `Failed to delete availability id:${availabilityId}` });
+    }
 })
 
 module.exports = {
