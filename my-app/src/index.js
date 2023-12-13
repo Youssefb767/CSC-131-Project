@@ -5,9 +5,11 @@ import './index.css';
 import App from "./App"; // Adjust the import path based on your actual file structure
 import reportWebVitals from './reportWebVitals';
 import AddEventForm from "./addEventForm";
+import AddUserForm from "./addUserForm";
 ReactDOM.render(
     <Router>
       <Routes>
+      <Route path="/add-user" element={<AddUserForm/>} />
       <Route path="/add-event" element={<AddEventForm/>} />
       <Route path="/"  element={<App />} />
     </Routes>
