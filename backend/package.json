@@ -73,6 +73,7 @@
     "mquery": "^5.0.0",
     "ms": "^2.0.0",
     "negotiator": "^0.6.3",
+    "node": "^21.2.0",
     "nopt": "^1.0.10",
     "normalize-path": "^3.0.0",
     "object-inspect": "^1.13.1",
@@ -115,8 +116,8 @@
     "yallist": "^4.0.0"
   },
   "scripts": {
-    "start": "node backend/server.js",
-    "server": "nodemon backend/server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
