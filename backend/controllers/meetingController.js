@@ -1,6 +1,7 @@
 //Simplifies error handling
 const asyncHandler = require('express-async-handler')
 const Meeting = require('../models/meetingModel')
+const User = require("../models/userModel");
 
 //Gets all meetings --- GET api/meeting
 const getAllMeetings = asyncHandler(async (req, res) => {
@@ -10,16 +11,21 @@ const getAllMeetings = asyncHandler(async (req, res) => {
 
 //Gets a single meeting --- GET /api/meeting/{meeting_id}
 const getSingleMeeting = asyncHandler(async (req, res) => {
-    res.status(200).json({message: `Get a Meeting ${req.params.meeting_id}` })
+    const meetingId = req.params.id;
+    const meeting = await Meeting.findById(meetingId);
+
+    if (!meeting) {
+        // If meeting is not found, return a 404 response
+        res.status(404).json({ message: 'Meeting not found' });
+        return;
+    }
+
+    res.status(200).json(meeting);
 })
 
 //Creates a meeting--- POST /api/meeting
 const createMeeting = asyncHandler(async (req, res) => {
-    if(!req.body.text){ // 400 = bad request
-        res.status(400)
-        throw new Error('Please add a text field')
-    }
-    res.status(200).json({message: 'Create a Meeting' })
+    console.log("help me")
 })
 
 //Edits a user --- PUT /api/users/:id
