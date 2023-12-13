@@ -16,8 +16,13 @@ const meetingSchema = mongoose.Schema({
     meetingDescription: {
         type: String,
         required: [true, 'Please add a description of the meeting']
-    }
-
+    },
+    availableUsers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 }, {
     timestamps: true,
 })
