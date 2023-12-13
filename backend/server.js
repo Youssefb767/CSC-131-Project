@@ -9,6 +9,7 @@ const connectDB = require('./config/db')
 
 connectDB()
 app.use(cors());
+
 //Allows the server to accept text being sent back
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
