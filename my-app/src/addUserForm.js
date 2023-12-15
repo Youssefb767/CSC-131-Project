@@ -8,8 +8,7 @@ const AddUserForm = ({ onAddUser }) => {
         Username:"",
         Password:"",
     });
-    //const [isSubmitted, setIsSubmitted] = useState(false);
-    //const [error, setError] = useState(null);
+  ;
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({

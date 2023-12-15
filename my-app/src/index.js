@@ -6,12 +6,15 @@ import App from "./App"; // Adjust the import path based on your actual file str
 import reportWebVitals from './reportWebVitals';
 import AddEventForm from "./addEventForm";
 import AddUserForm from "./addUserForm";
+import AddAvailabilityForm from "./addAvailabilityForm";
 ReactDOM.render(
     <Router>
       <Routes>
+          <Route path="/"  element={<App />} />
       <Route path="/add-user" element={<AddUserForm/>} />
       <Route path="/add-event" element={<AddEventForm/>} />
-      <Route path="/"  element={<App />} />
+
+       <Route path="/add-availability" element={<AddAvailabilityForm/>} />
     </Routes>
     </Router>,
     document.getElementById("root")

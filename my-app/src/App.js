@@ -1,11 +1,10 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { generateDate, months } from "/Users/qasimali/Desktop/CSC-131-Project/my-app/src/util/calender.js";
+import { generateDate, months } from "/Users/sasha/presentationProject/CSC-131-Project/my-app/src/util/calender.js";
 import cn from "./util/cn";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
-import AddEventForm from "./addEventForm";
-import AddUserForm from "./addUserForm";
+
 
 
 
@@ -17,7 +16,7 @@ export default function Calendar() {
 	const [today, setToday] = useState(currentDate);
 	const [selectDate, setSelectDate] = useState(currentDate);
 
-	const [meetingData, setMeetingData] = useState([
+	const [meetingData] = useState([
 		{ id: 1, title: "Meeting 1" },
 		{ id: 2, title: "Meeting 2" },
 		// Add more meeting objects as needed
@@ -124,6 +123,10 @@ export default function Calendar() {
 				</Link>
 				<div>
 					<Link to="/add-user" class="button-style text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button"> Add a User <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 5 6"></svg>
+					</Link>
+				</div>
+				<div>
+					<Link to="/add-availability" class="button-style text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center me-2 mb-2" type="button"> Add Availability <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 5 6"></svg>
 					</Link>
 				</div>
 

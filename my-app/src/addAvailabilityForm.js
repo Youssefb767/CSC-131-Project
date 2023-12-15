@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import {Link} from "react-router-dom";
 
 const AddAvailabilityForm = () => {
     // State to store availability data
@@ -126,6 +127,9 @@ const AddAvailabilityForm = () => {
             </label>
 
             <button type="submit">Submit</button>
+            <Link to="/" type="button" class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+                Back to Calendar
+            </Link>
         </form>
     );
 };
